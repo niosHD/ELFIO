@@ -1,7 +1,6 @@
 from conans import ConanFile, CMake, tools
 import os
 import re
-import sys
 
 # parse the version from the configure.ac file
 def get_version():
@@ -10,7 +9,7 @@ def get_version():
         return None
     with open(configureac_path, 'r') as myfile:
         data = myfile.read()
-    version = re.match("AC_INIT\\(\\[ELFIO\\], \\[([0-9\\.]+)\\]\\)", data)
+    version = re.search("AC_INIT\\(\\[ELFIO\\], \\[([0-9\\.]+)\\]\\)", data)
     if version:
         return version.group(1)
     return None
@@ -24,7 +23,7 @@ class Elfio(ConanFile):
     no_copy_source = True
     scm = {
         "type": "git",
-        "url": "auto",
+        "url": "https://github.com/niosHD/ELFIO.git",
         "revision": "auto"
     }
 
